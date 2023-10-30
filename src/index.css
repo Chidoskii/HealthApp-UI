@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}
+
+header {
+  background-color: aqua;
+}
+
+header .container {
+  text-align: center;
+  align-items: center;
+}
