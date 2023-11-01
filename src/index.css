@@ -25,3 +25,8 @@ header .container {
   text-align: center;
   align-items: center;
 }
+
+.banner {
+  margin-top: 0;
+
+}
