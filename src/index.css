@@ -30,3 +30,12 @@ header .container {
   margin-top: 0;
 
 }
+
+.welcome {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.uname {
+
+}
