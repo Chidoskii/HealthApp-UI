@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 
 //pages and components
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import PatientHome from './pages/PatientHome';
+import PatientLogin from './pages/PatientLogin';
+import Landing from './pages/Landing';
+import PatientSignup from './pages/PatientSignup';
 import Navi from './components/Navi';
 
 function App() {
@@ -15,17 +16,24 @@ function App() {
         <Navi />
         <div className="pages">
           <Routes>
+            <Route path="/" element={<Landing />} />
             <Route
-              path="/"
-              element={patient ? <Home /> : <Navigate to="/login" />}
+              path="/patient_home"
+              element={
+                patient ? <PatientHome /> : <Navigate to="/patient_login" />
+              }
             />
             <Route
-              path="/login"
-              element={!patient ? <Login /> : <Navigate to="/" />}
+              path="/patient_login"
+              element={
+                !patient ? <PatientLogin /> : <Navigate to="/patient_home" />
+              }
             />
             <Route
-              path="/signup"
-              element={!patient ? <Signup /> : <Navigate to="/" />}
+              path="/patient_signup"
+              element={
+                !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
+              }
             />
           </Routes>
         </div>

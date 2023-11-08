@@ -9,7 +9,7 @@ export const useLogout = () => {
     localStorage.removeItem('patient');
 
     // dispatch logout action
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'PATIENT_LOGOUT' });
     patientsDispatch({ type: 'SET_PATIENTS', payload: null });
   };
   return { logout };

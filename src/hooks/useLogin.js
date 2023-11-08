@@ -10,11 +10,14 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch('http://localhost:4000/patients/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      'http://localhost:4000/patients/patient_login',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {
@@ -26,7 +29,7 @@ export const useLogin = () => {
       localStorage.setItem('patient', JSON.stringify(json));
 
       // update the auth context
-      dispatch({ type: 'LOGIN', payload: json });
+      dispatch({ type: 'PATIENT_LOGIN', payload: json });
 
       setIsLoading(false);
     }

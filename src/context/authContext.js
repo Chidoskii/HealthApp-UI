@@ -4,9 +4,9 @@ export const AuthContext = createContext();
 
 export const authReducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case 'PATIENT_LOGIN':
       return { patient: action.payload };
-    case 'LOGOUT':
+    case 'PATIENT_LOGOUT':
       return { patient: null };
     default:
       return state;
@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
     const patient = JSON.parse(localStorage.getItem('patient'));
 
     if (patient) {
-      dispatch({ type: 'LOGIN', payload: patient });
+      dispatch({ type: 'PATIENT_LOGIN', payload: patient });
     }
   }, [dispatch]);
 
