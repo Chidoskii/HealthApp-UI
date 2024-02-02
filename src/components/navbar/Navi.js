@@ -57,8 +57,12 @@ const Navi = () => {
           )}
           {!patient && (
             <div className="top-navi">
-              <Link to="/patient_login">LOGIN</Link>
-              <Link to="/patient_signup">JOIN</Link>
+              <Link to="/patient_login">
+                <Button className="creds-btn">LOGIN</Button>
+              </Link>
+              <Link to="/patient_signup">
+                <Button className="creds-btn">JOIN</Button>
+              </Link>
             </div>
           )}
         </nav>
