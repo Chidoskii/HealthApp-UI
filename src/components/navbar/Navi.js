@@ -18,29 +18,31 @@ const Navi = () => {
   return (
     <Navbar className="bg-body-tertiary" fixed="top">
       <Container fluid className="topnav-contents">
-        <Navbar.Brand className="rh-topnav-logo" href="/">
-          <img
-            alt="RH"
-            src={Logo}
-            className="d-inline-block align-top rh-logo"
-          />
+        <Navbar.Brand className="rh-topnav-logo">
+          <Link to="/">
+            <img
+              alt="RH"
+              src={Logo}
+              className="d-inline-block align-top rh-logo"
+            />
+          </Link>
         </Navbar.Brand>
 
         <nav>
           {patient && (
             <div className="page-links top-navi">
-              <Nav.Link href="/patient_home" className="link-btn">
+              <Link to="/patient_home" className="link-btn">
                 Home
-              </Nav.Link>
-              <Nav.Link href="#features" className="link-btn">
+              </Link>
+              <Link to="#features" className="link-btn">
                 Records
-              </Nav.Link>
-              <Nav.Link href="#features" className="link-btn">
+              </Link>
+              <Link to="#features" className="link-btn">
                 Schedule
-              </Nav.Link>
-              <Nav.Link href="#pricing" className="link-btn">
+              </Link>
+              <Link to="#pricing" className="link-btn">
                 Invoice
-              </Nav.Link>
+              </Link>
               <div>
                 <span style={{ padding: 10 }} className="pname">
                   {patient.email}

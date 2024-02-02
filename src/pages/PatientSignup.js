@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSignup } from '../hooks/useSignup';
+import { useSignup } from '../hooks/useSignup.js';
 
 const Signup = () => {
   const [fname, setFname] = useState('');
@@ -9,7 +9,7 @@ const Signup = () => {
   const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
 
     await signup(fname, lname, email, password);
   };
