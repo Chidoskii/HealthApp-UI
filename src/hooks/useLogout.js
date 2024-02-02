@@ -1,7 +1,7 @@
 import { useAuthContext } from './useAuthContext';
 import { usePatientsContext } from './usePatientContext';
 
-export const useLogout = () => {
+export const UseLogout = () => {
   const { dispatch } = useAuthContext();
   const { dispatch: patientsDispatch } = usePatientsContext();
   const logout = () => {

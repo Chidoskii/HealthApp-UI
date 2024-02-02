@@ -18,7 +18,7 @@ const Home = () => {
   }, [patient.email]);
 
   return (
-    <div className="home">
+    <div className="home page-contents">
       <h2 className="welcome">
         Welcome, &nbsp;
         {user ? (
