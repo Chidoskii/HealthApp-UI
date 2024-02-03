@@ -5,6 +5,9 @@ import third from './imgs/wait-room.jpg';
 import fourth from './imgs/ehrs.jpg';
 import fifth from './imgs/mission.jpg';
 import sixth from './imgs/chido.jpg';
+import seven from './imgs/nc.jpg';
+import eight from './imgs/nr.jpg';
+import nine from './imgs/dr.jpg';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -49,10 +52,9 @@ function Landing() {
               electronic health records (EHR) to help transition medical
               facilities into a digital cloud-based system for healthcare. There
               is a significant benefit for healthcare facilities to transition
-              to a fully digital system for managing patient health information
-              (PHI).{' '}
+              to a fully digital system for managing patient health information.{' '}
             </p>
-            <p>
+            <p className="runner-overflow">
               EHRs will allow facilities to have streamlined access to records
               and reduce the clutter that physical records bring to the
               workspace. It will also facilitate the management of appointments,
@@ -61,7 +63,7 @@ function Landing() {
               Physicians will be able to respond to a patient's request for
               medical records at a faster rate.
             </p>
-            <p>
+            <p className="runner-overflow">
               With the implementation of EHRs, a complete medical history can be
               maintained and stored securely for as long as the patient
               requires. With the advancements being made in technology, an EHR
@@ -89,7 +91,7 @@ function Landing() {
           <h1 className="subsec-title">Team Members</h1>
           <div className="runner-team-box">
             <Card className="team-member-card">
-              <Card.Img variant="top" className="team-img" src={first} />
+              <Card.Img variant="top" className="team-img" src={seven} />
               <Card.Body>
                 <Card.Title className="team-member-name">
                   Nicklas Chang
@@ -107,7 +109,7 @@ function Landing() {
               </Card.Body>
             </Card>
             <Card className="team-member-card">
-              <Card.Img variant="top" className="team-img" src={first} />
+              <Card.Img variant="top" className="team-img" src={eight} />
               <Card.Body>
                 <Card.Title className="team-member-name">
                   Nicholas Romasanta
@@ -116,7 +118,7 @@ function Landing() {
               </Card.Body>
             </Card>
             <Card className="team-member-card">
-              <Card.Img variant="top" className="team-img" src={first} />
+              <Card.Img variant="top" className="team-img" src={nine} />
               <Card.Body>
                 <Card.Title className="team-member-name">
                   Daniel Rivera
