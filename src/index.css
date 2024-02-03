@@ -43,8 +43,8 @@ header .container {
 }
 
 .page-contents {
-  padding-top: 65px;
-  min-height: 200vh;
+  padding: 57px 0 100px;
+  min-height: 100vh;
   background-color: gainsboro;
 }
 
@@ -110,6 +110,128 @@ header .container {
 
 .landing-page {
   padding-top: 57px;
+}
+
+.carousel-item,
+.showcase-img {
+  object-fit: cover;
+  object-position: center;
+  height: 60vh;
+  overflow: hidden;
+}
+
+.carousel-caption {
+  overflow: hidden;
+  object-position: center;
+  z-index: 5;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.349);
+}
+
+.landing-showcase,
+.carousel-item,
+.showcase-img {
+  max-height: 60vh;
+  border-bottom: rgb(141, 141, 141) solid 1px;
+}
+
+.showcase-img {
+  width: 100%;
+}
+
+.runner-what,
+.runner-mission,
+.runner-team,
+.runner-service,
+.runner-review,
+.runner-contact {
+  display: flex;
+  padding-top: 25px;
+  min-height: 50vh;
+}
+
+.runner-what-l {
+  text-align: justify;
+  padding: 25px;
+  width: 60%;
+}
+.runner-what-r {
+  display: flex;
+  width: 40%;
+  align-items: center;
+}
+
+.runner-mission {
+  background-color: #f8f9fa;
+  padding: 25px;
+}
+
+.runner-mission-l {
+  display: flex;
+  width: 40%;
+  align-items: center;
+}
+
+.runner-mission-r {
+  text-align: justify;
+  padding: 25px;
+  width: 60%;
+}
+
+.runner-team {
+  background-color: #061237;
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  padding: 10px;
+}
+
+.runner-team-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.runner-service {
+  background-color: #f8f9fa;
+  padding: 25px;
+}
+
+.runner-review {
+  background-color: goldenrod;
+  /*background: linear-gradient(#f8f9fa 75%, goldenrod);*/
+  padding: 25px;
+}
+
+.runner-contact {
+  background-color: gainsboro;
+  padding: 25px;
+}
+
+.runner-img {
+  width: 100%;
+  border-radius: 25px;
+}
+
+.team-img {
+  object-fit: cover;
+  object-position: center;
+  border-bottom: goldenrod 1px solid;
+  height: 75%;
+}
+
+.subsec-title {
+  text-align: center;
+}
+
+.team-member-card {
+  margin: 5px;
+  width: 20rem;
+  border: goldenrod 1px solid;
+}
+
+.team-member-name {
+  font-size: 13pt;
 }
 
 @media screen and (max-width: 710px) {

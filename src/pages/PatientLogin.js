@@ -14,26 +14,33 @@ const Login = () => {
 
   return (
     <div className="page-contents">
-      <form className="login" onSubmit={handleSubmit}>
-        <h3>Login</h3>
+      <div className="container-fluid">
+        <form className="login" onSubmit={handleSubmit}>
+          <h3>Login</h3>
 
-        <label>Email:</label>
-        <input
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
+          <label>
+            Email:
+            <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+          </label>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-
-        <button disabled={isLoading}>Login</button>
-        {error && <div className="error">{error}</div>}
-      </form>
+          <label>
+            Password:
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+          </label>
+          <br></br>
+          <br></br>
+          <button disabled={isLoading}>Login</button>
+          {error && <div className="error">{error}</div>}
+        </form>
+      </div>
     </div>
   );
 };
