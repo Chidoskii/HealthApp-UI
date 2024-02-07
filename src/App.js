@@ -10,6 +10,7 @@ import Landing from './pages/Landing';
 import PatientSignup from './pages/PatientSignup';
 import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
+import Footer from './components/footer/Footer.jsx';
 
 function App() {
   const { patient } = useAuthContext();
@@ -42,6 +43,7 @@ function App() {
                 }
               />
             </Routes>
+            <Footer />
             <MNavi />
           </div>
         </BrowserRouter>

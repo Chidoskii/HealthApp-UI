@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   margin: 0;
@@ -43,7 +47,7 @@ header .container {
 }
 
 .page-contents {
-  padding: 57px 0 100px;
+  padding: 67px 0 100px;
   min-height: 100vh;
   background-color: gainsboro;
 }
@@ -63,6 +67,7 @@ header .container {
   padding: 3px 2px;
   font-size: 8pt;
   text-align: center;
+  background-color: #6c757d;
 }
 
 .pname {
@@ -118,6 +123,11 @@ header .container {
   object-position: center;
   height: 60vh;
   overflow: hidden;
+}
+
+.carousel-header {
+  font-size: 18pt;
+  color: whitesmoke;
 }
 
 .carousel-caption {
@@ -222,6 +232,8 @@ header .container {
 
 .subsec-title {
   text-align: center;
+  font-weight: 500;
+  font-size: 30pt;
 }
 
 .team-member-card {
@@ -238,6 +250,45 @@ header .container {
 .card-body {
   background-color: gainsboro;
   border-radius: 15px;
+}
+
+.footy-logo {
+  max-height: 100px;
+}
+
+.footy-border {
+  border-bottom: rgb(141, 141, 141) solid 1px;
+}
+
+.footy-links {
+  display: block;
+  color: #6c757d;
+}
+
+.footy {
+  background-color: #f8f9fa;
+  min-height: 20vh;
+  width: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #061237;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: goldenrod;
 }
 
 @media screen and (max-width: 710px) {
@@ -345,5 +396,32 @@ header .container {
 
   .showcase-img {
     width: 100%;
+  }
+
+  .footy-logo {
+    max-height: 75px;
+  }
+
+  .footy-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footy-links {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rh-footer-can {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footy {
+    padding-bottom: 60px;
   }
 }

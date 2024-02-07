@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background: linear-gradient(whitesmoke, rgb(170, 170, 170));
 }
 
 .signup-form-container {
@@ -25,7 +25,7 @@
 .logo {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-left: 45px;
 }
 
@@ -51,7 +51,7 @@ input {
 }
 
 button.signup-button {
-  background-color: #007bff;
+  background-color: #0a2061;
   color: #fff;
   padding: 10px;
   border: none;
@@ -61,7 +61,7 @@ button.signup-button {
 }
 
 button.signup-button:hover {
-  background-color: #0056b3
+  background-color: #061237;
 }
 
 button.signup-button:disabled {
@@ -75,7 +75,7 @@ button.signup-button:disabled {
   text-align: center;
 }
 
-.login-section-container {
+.switch-section-container {
   display: flex;
   justify-content: center;
   max-width: 400px;
@@ -86,35 +86,16 @@ button.signup-button:disabled {
   background-color: #fff;
 }
 
-.login-section p {
+.switch-section p {
   margin: 10px;
 }
 
-.login-link {
+.switch-link {
   color: goldenrod;
   text-decoration: none;
   font-weight: bold;
 }
 
-.login-link:hover {
+.switch-link:hover {
   color: darkgoldenrod;
-}
-
-.footer {
-  text-align: center;
-  padding: 10px;
-  background-color: #f4f4f4;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-.footer a {
-  color: #555;
-  text-decoration: none;
-  margin: 0 5px;
-}
-
-.footer a:hover {
-  color: #333;
 }

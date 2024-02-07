@@ -18,8 +18,8 @@ const Home = () => {
   }, [patient.email]);
 
   return (
-    <div className="home page-contents">
-      <h2 className="welcome">
+    <div className="home page-contents container-fluid">
+      <h2 className="welcome container-fluid text-2xl">
         Welcome, &nbsp;
         {user ? (
           user.map((user, index) => (

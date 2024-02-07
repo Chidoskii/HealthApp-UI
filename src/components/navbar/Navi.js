@@ -49,7 +49,7 @@ const Navi = () => {
                 </span>
                 <Button
                   onClick={handleClick}
-                  className="btn logout-btn"
+                  className="btn logout-btn bg-slate-500"
                   variant="secondary"
                 >
                   LOGOUT
