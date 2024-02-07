@@ -424,4 +424,57 @@ header .container {
   .footy {
     padding-bottom: 60px;
   }
+
+  .signup-form-container,
+  .switch-section-container {
+    width: 80% !important;
+    min-width: 280px;
+  }
+
+  .switch-section p {
+    text-align: center;
+    font-size: 11pt;
+  }
+
+  .logo {
+    margin: 15px auto !important;
+  }
+
+  .runner-overflow {
+    display: none;
+  }
+
+  .runner-what,
+  .runner-mission,
+  .runner-team,
+  .runner-service,
+  .runner-review,
+  .runner-contact {
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 25px;
+  }
+
+  .runner-what-l {
+    text-align: justify;
+    width: 100%;
+    padding: 0 0 50px;
+  }
+  .runner-what-r {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .runner-mission-l {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .runner-mission-r {
+    text-align: justify;
+    padding: 25px;
+    width: 100%;
+  }
 }

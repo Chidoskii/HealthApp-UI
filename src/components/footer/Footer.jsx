@@ -15,13 +15,14 @@ const Footer = () => {
               {/* logo */}
               <div className=" flex gap-2 items-center text-2xl text-#000 font-bold rh-footer-can">
                 <img
-                  src={require('./img/lion-logopng-33401.png')}
+                  src={require('./img/health-heart.png')}
                   alt=""
                   className="footy-logo"
                 />
                 <span>Runner Health</span>
               </div>
             </div>
+            <br />
             {/* disc */}
             <div className="text-[#000]">
               <a href="#" className="footy-links">
@@ -41,7 +42,6 @@ const Footer = () => {
               </a>
             </div>
             <p style={{ lineHeight: 1 }}>
-              <br />
               <br />
               <br />
             </p>
