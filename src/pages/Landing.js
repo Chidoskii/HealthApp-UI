@@ -18,6 +18,7 @@ import elle from './imgs/appointments.jpg';
 import twelve from './imgs/payment.jpg';
 import thirteen from './imgs/doc.jpg';
 import fourteen from './imgs/healthcare-worker.jpg';
+import fifteen from './imgs/patient.jpg';
 
 function Landing() {
   return (
@@ -103,7 +104,7 @@ function Landing() {
                 <Card.Title className="team-member-name">
                   Nicklas Chang
                 </Card.Title>
-                <Card.Text>Group Liaison</Card.Text>
+                <Card.Text>Group Liaison | Front-end Development</Card.Text>
               </Card.Body>
             </Card>
             <Card className="team-member-card">
@@ -112,7 +113,7 @@ function Landing() {
                 <Card.Title className="team-member-name">
                   Chidi Okpara
                 </Card.Title>
-                <Card.Text>Full Stack Developer</Card.Text>
+                <Card.Text>Full Stack Development</Card.Text>
               </Card.Body>
             </Card>
             <Card className="team-member-card">
@@ -161,6 +162,7 @@ function Landing() {
           </div>
         </div>
         <div className="runner-review container-fluid">
+          <h1 className="subsec-title">User Stories</h1>
           <div className="all-cases-can">
             <div className="cases-can">
               <div className="case-img-can">
@@ -176,14 +178,20 @@ function Landing() {
               <div className="case-img-can">
                 <img className="case-img" alt=".." src={fourteen} />
               </div>
-              <div className="case-desc">Schedule Appointments</div>
+              <div className="case-desc">
+                "As a healthcare worker, I want a healthcare management system
+                that will help schedule appointments and manage payments."
+              </div>
             </div>
             <div className="case-divider"></div>
             <div className="cases-can">
               <div className="case-img-can">
-                <img className="case-img" alt=".." src={twelve} />
+                <img className="case-img" alt=".." src={fifteen} />
               </div>
-              <div className="case-desc">Make Payments</div>
+              <div className="case-desc">
+                "As a patient, I want to be able to store my health records in
+                one place. That way, I won't worry about losing them."
+              </div>
             </div>
           </div>
         </div>
