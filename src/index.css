@@ -156,7 +156,7 @@ header .container {
 .runner-review,
 .runner-contact {
   display: flex;
-  padding-top: 25px;
+  padding: 50px 25px;
   min-height: 50vh;
 }
 
@@ -173,19 +173,19 @@ header .container {
 
 .runner-mission {
   background-color: #f8f9fa;
-  padding: 25px;
 }
 
 .runner-mission-l {
   display: flex;
-  width: 40%;
+  width: 45%;
+  margin: 0 auto;
   align-items: center;
 }
 
 .runner-mission-r {
   text-align: justify;
   padding: 25px;
-  width: 60%;
+  width: 50%;
 }
 
 .runner-team {
@@ -193,7 +193,6 @@ header .container {
   display: flex;
   flex-direction: column;
   color: aliceblue;
-  padding: 10px;
 }
 
 .runner-team-box {
@@ -203,19 +202,90 @@ header .container {
 }
 
 .runner-service {
+  flex-direction: column;
+  align-items: center;
   background-color: #f8f9fa;
-  padding: 25px;
+}
+
+.all-services-can {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.services-can {
+  width: 32%;
+  background-color: gainsboro;
+}
+
+.service-img-can {
+  height: 60%;
+  min-height: 275px;
+}
+
+.service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.service-divider {
+  min-width: 1%;
+}
+
+.service-desc {
+  min-height: 200px;
+}
+
+.all-cases-can {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cases-can {
+  width: 32%;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  border: 1px solid #061237;
+  box-shadow: 3px 3px 3px #111;
+}
+
+.case-img-can {
+  height: 60%;
+  min-height: 275px;
+}
+
+.case-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 29px;
+  border-top-right-radius: 29px;
+}
+
+.case-divider {
+  min-width: 1%;
+}
+
+.case-desc {
+  min-height: 200px;
 }
 
 .runner-review {
   background-color: goldenrod;
-  /*background: linear-gradient(#f8f9fa 75%, goldenrod);*/
-  padding: 25px;
 }
 
 .runner-contact {
   background-color: gainsboro;
-  padding: 25px;
 }
 
 .runner-img {
@@ -234,6 +304,7 @@ header .container {
   text-align: center;
   font-weight: 500;
   font-size: 30pt;
+  padding: 50px 0;
 }
 
 .team-member-card {
@@ -476,5 +547,39 @@ header .container {
     text-align: justify;
     padding: 25px;
     width: 100%;
+  }
+
+  .MNavi {
+    z-index: 500;
+  }
+
+  .services-can {
+    width: 90%;
+    margin: 25px auto;
+    background-color: gainsboro;
+  }
+
+  .service-divider {
+    display: none;
+  }
+
+  .service-img-can {
+    height: 60%;
+    max-height: 285px;
+  }
+
+  .cases-can {
+    width: 90%;
+    margin: 25px auto;
+    background-color: whitesmoke;
+  }
+
+  .case-divider {
+    display: none;
+  }
+
+  .case-img-can {
+    height: 60%;
+    max-height: 285px;
   }
 }
