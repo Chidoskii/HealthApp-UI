@@ -84,6 +84,10 @@ header .container {
   display: none;
 }
 
+.mnav-logout-btn {
+  background-color: #061237;
+}
+
 .creds-btn {
   margin: 0 5px;
   padding: 0 6px;
@@ -190,6 +194,10 @@ header .container {
   width: 50%;
 }
 
+.runner-mission-statement {
+  font-size: 14pt;
+}
+
 .runner-team {
   background-color: #061237;
   display: flex;
@@ -292,7 +300,7 @@ header .container {
 .case-desc {
   min-height: 50px;
   margin: 25px;
-  font-size: 13pt;
+  font-size: 20pt;
 }
 
 .runner-review {
@@ -380,7 +388,7 @@ header .container {
   background: goldenrod;
 }
 
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 800px) {
   .top-navi {
     display: none;
   }
@@ -400,6 +408,7 @@ header .container {
     justify-content: space-between;
     text-align: center;
     padding: 0;
+    z-index: 500;
     min-height: 50px;
     border-top: rgb(141, 141, 141) solid 1px;
   }
@@ -567,10 +576,6 @@ header .container {
     width: 100%;
   }
 
-  .MNavi {
-    z-index: 500;
-  }
-
   .services-can {
     width: 90%;
     margin: 25px auto;
@@ -608,5 +613,21 @@ header .container {
     margin: 25px;
     font-size: 25pt;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .case-desc {
+    min-height: 50px;
+    margin: 50px;
+    font-size: 15pt;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .case-desc {
+    min-height: 50px;
+    margin: 30px;
+    font-size: 15pt;
   }
 }
