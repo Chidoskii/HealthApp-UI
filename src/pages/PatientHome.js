@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await fetch(
-        `http://localhost:4000/patients/${patient.email}`
+        `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
       );
       const data = await response.json();
       setUser(data);
