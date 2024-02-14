@@ -11,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const { signup, error, isLoading } = useSignup();
 
-  const invalidFields = !fname || !lname || !email || !password
+  const invalidFields = !fname || !lname || !email || !password;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,14 +23,13 @@ const Signup = () => {
       <div className="signup-form-container">
         <form className="signup-form" onSubmit={handleSubmit}>
           <Link to="/">
-            <img
-              alt="RH"
-              src={Logo}
-              className="logo"
-            />
+            <img alt="RH" src={Logo} className="logo" />
           </Link>
 
-          <h3>Create an account for free to access Runner Health's premiere EHR and Medical hub!</h3>
+          <h3>
+            Create an account for free to access Runner Health's premiere EHR
+            and Medical hub!
+          </h3>
 
           <label>
             <input
@@ -72,20 +71,25 @@ const Signup = () => {
             />
           </label>
 
-          <button className="signup-button" disabled={isLoading || invalidFields}>
+          <button
+            className="signup-button"
+            disabled={isLoading || invalidFields}
+          >
             {isLoading ? 'Signing Up...' : 'Sign Up'}
           </button>
 
           {error && <div className="error">{error}</div>}
         </form>
       </div>
-      <div className="login-section-container">
-        <div className="login-section">
-          <p>Already have an account? <Link to="/patient_login" className="login-link">Log in</Link></p>
+      <div className="switch-section-container">
+        <div className="switch-section">
+          <p>
+            Already have an account?{' '}
+            <Link to="/patient_login" className="switch-link">
+              Log in
+            </Link>
+          </p>
         </div>
-      </div>
-      <div className="footer">
-        <p><Link to="/about">About</Link> <Link to="/services">Services</Link> <Link to="/contact">Contact</Link></p>
       </div>
     </div>
   );

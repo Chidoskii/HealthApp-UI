@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 import { useMemo } from 'react';
 import { IconContext } from 'react-icons/lib';
+import ToTop from './helpers/ScrollToTop';
 
 //pages and components
 import PatientHome from './pages/PatientHome';
@@ -20,6 +21,7 @@ function App() {
     <IconContext.Provider value={foo}>
       <div className="App">
         <BrowserRouter>
+          <ToTop />
           <Navi />
           <div className="pages">
             <Routes>
