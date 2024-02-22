@@ -64,10 +64,10 @@ const MNavi = () => {
       )}
       {!patient && (
         <div className="bott-navi">
-          <Link className="bttm-link-btn mnav-login" to="/patient_login">
+          <Link className="bttm-link-btn mnav-login" to="/login_selection">
             LOGIN
           </Link>
-          <Link className="bttm-link-btn mnav-join" to="/patient_signup">
+          <Link className="bttm-link-btn mnav-join" to="/signup_selection">
             JOIN
           </Link>
         </div>
