@@ -26,6 +26,7 @@ const Login = () => {
           </Link>
 
           <h3>Log in to your Runner Health Account</h3>
+          <h5>Patient Login</h5>
 
           <label>
             <input

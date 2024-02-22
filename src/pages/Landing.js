@@ -110,9 +110,7 @@ function Landing() {
                     </Card.Title>
                   </ListGroup.Item>
                   <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
-                  <ListGroup.Item>
-                    Group Liaison | Front-end Development
-                  </ListGroup.Item>
+                  <ListGroup.Item>~Your Role Here~</ListGroup.Item>
                   <ListGroup.Item>~Your Links Here~</ListGroup.Item>
                 </ListGroup>
               </Card.Body>
@@ -164,7 +162,7 @@ function Landing() {
                     </Card.Title>
                   </ListGroup.Item>
                   <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
-                  <ListGroup.Item>Back-end Development</ListGroup.Item>
+                  <ListGroup.Item>~Your Role Here~</ListGroup.Item>
                   <ListGroup.Item>~Your Links Here~</ListGroup.Item>
                 </ListGroup>
               </Card.Body>
@@ -179,7 +177,7 @@ function Landing() {
                     </Card.Title>
                   </ListGroup.Item>
                   <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
-                  <ListGroup.Item>Front-end Development</ListGroup.Item>
+                  <ListGroup.Item>~Your Role Here~</ListGroup.Item>
                   <ListGroup.Item>~Your Links Here~</ListGroup.Item>
                 </ListGroup>
               </Card.Body>
