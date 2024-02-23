@@ -38,7 +38,7 @@ const MNavi = () => {
           <Link to="/patient_home" className="bttm-link-btn">
             <IoIosHome />
           </Link>
-          <Link to="#features" className="bttm-link-btn">
+          <Link to="/records" className="bttm-link-btn">
             <IoDocumentText />
           </Link>
           <div className="bttm-link-btn">
@@ -63,10 +63,10 @@ const MNavi = () => {
               <Dropdown.Item eventKey="3">Settings</Dropdown.Item>
             </DropdownButton>
           </div>
-          <Link to="#features" className="bttm-link-btn">
+          <Link to="/schedule" className="bttm-link-btn">
             <BsCalendar2DateFill />
           </Link>
-          <Link to="#pricing" className="bttm-link-btn">
+          <Link to="/invoice" className="bttm-link-btn">
             <FaFileInvoiceDollar />
           </Link>
         </>
@@ -76,7 +76,7 @@ const MNavi = () => {
           <Link to="/admin_home" className="bttm-link-btn">
             <IoIosHome />
           </Link>
-          <Link to="#features" className="bttm-link-btn">
+          <Link to="/records" className="bttm-link-btn">
             <IoDocumentText />
           </Link>
           <div className="bttm-link-btn">
@@ -101,10 +101,10 @@ const MNavi = () => {
               <Dropdown.Item eventKey="3">Settings</Dropdown.Item>
             </DropdownButton>
           </div>
-          <Link to="#features" className="bttm-link-btn">
+          <Link to="/schedule" className="bttm-link-btn">
             <BsCalendar2DateFill />
           </Link>
-          <Link to="#pricing" className="bttm-link-btn">
+          <Link to="/invoice" className="bttm-link-btn">
             <FaFileInvoiceDollar />
           </Link>
         </>
@@ -114,7 +114,7 @@ const MNavi = () => {
           <Link to="/doctor_home" className="bttm-link-btn">
             <IoIosHome />
           </Link>
-          <Link to="#features" className="bttm-link-btn">
+          <Link to="/records" className="bttm-link-btn">
             <IoDocumentText />
           </Link>
           <div className="bttm-link-btn">
@@ -139,10 +139,10 @@ const MNavi = () => {
               <Dropdown.Item eventKey="3">Settings</Dropdown.Item>
             </DropdownButton>
           </div>
-          <Link to="#features" className="bttm-link-btn">
+          <Link to="#/schedule" className="bttm-link-btn">
             <BsCalendar2DateFill />
           </Link>
-          <Link to="#pricing" className="bttm-link-btn">
+          <Link to="/invoice" className="bttm-link-btn">
             <FaFileInvoiceDollar />
           </Link>
         </>
