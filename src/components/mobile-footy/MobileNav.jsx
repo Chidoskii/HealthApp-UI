@@ -12,6 +12,7 @@ import { IoDocumentText } from 'react-icons/io5';
 import { FaFileInvoiceDollar } from 'react-icons/fa6';
 import { BsCalendar2DateFill } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
+import { MdInventory } from 'react-icons/md';
 
 const MNavi = () => {
   const { logout } = UseLogout();
@@ -76,8 +77,8 @@ const MNavi = () => {
           <Link to="/admin_home" className="bttm-link-btn">
             <IoIosHome />
           </Link>
-          <Link to="/records" className="bttm-link-btn">
-            <IoDocumentText />
+          <Link to="/inventory" className="bttm-link-btn">
+            <MdInventory />
           </Link>
           <div className="bttm-link-btn">
             <DropdownButton
