@@ -17,6 +17,11 @@ import DoctorHome from './pages/DoctorHome';
 import DoctorLogin from './pages/DoctorLogin';
 import SignupSelector from './pages/SignupSelector';
 import LoginSelector from './pages/LoginSelector';
+import Records from './pages/Records';
+import Invoice from './pages/Invoice';
+import Inventory from './pages/Inventory';
+import Schedule from './pages/Schedule';
+import NotFoundPage from './pages/NotFoundPage';
 import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
 import Footer from './components/footer/Footer.jsx';
@@ -37,10 +42,32 @@ function App() {
               <Route path="/signup_selection" element={<SignupSelector />} />
               <Route path="/login_selection" element={<LoginSelector />} />
               <Route
-                path="/patient_home"
+                path="/records"
+                element={patient || doctor ? <Records /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/invoice"
                 element={
-                  patient ? <PatientHome /> : <Navigate to="/patient_login" />
+                  patient || doctor || admin ? <Invoice /> : <Navigate to="/" />
                 }
+              />
+              <Route
+                path="/inventory"
+                element={admin ? <Inventory /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/schedule"
+                element={
+                  patient || doctor || admin ? (
+                    <Schedule />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/patient_home"
+                element={patient ? <PatientHome /> : <Navigate to="/" />}
               />
               <Route
                 path="/patient_login"
@@ -56,7 +83,7 @@ function App() {
               />
               <Route
                 path="/admin_home"
-                element={admin ? <AdminHome /> : <Navigate to="/admin_login" />}
+                element={admin ? <AdminHome /> : <Navigate to="/" />}
               />
               <Route
                 path="/admin_login"
@@ -72,9 +99,7 @@ function App() {
               />
               <Route
                 path="/doctor_home"
-                element={
-                  doctor ? <DoctorHome /> : <Navigate to="/doctor_login" />
-                }
+                element={doctor ? <DoctorHome /> : <Navigate to="/" />}
               />
               <Route
                 path="/doctor_login"
@@ -88,6 +113,7 @@ function App() {
                   !doctor ? <DoctorSignup /> : <Navigate to="/doctor_home" />
                 }
               />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer />
             <MNavi />
