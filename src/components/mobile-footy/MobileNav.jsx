@@ -139,7 +139,7 @@ const MNavi = () => {
               <Dropdown.Item eventKey="3">Settings</Dropdown.Item>
             </DropdownButton>
           </div>
-          <Link to="#/schedule" className="bttm-link-btn">
+          <Link to="/schedule" className="bttm-link-btn">
             <BsCalendar2DateFill />
           </Link>
           <Link to="/invoice" className="bttm-link-btn">
