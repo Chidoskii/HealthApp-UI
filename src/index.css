@@ -455,12 +455,13 @@ header .container {
   .profile-options-btn {
     color: #061237;
     background-color: #f8f9fa;
-    padding: 0;
+    padding: 0 12px;
   }
 
   .dd-profile-btn,
   .dropdown-toggle {
     background-color: #f8f9fa !important;
+    padding: 0;
     border: none;
   }
 
