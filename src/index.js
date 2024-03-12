@@ -7,6 +7,7 @@ import { PatientsContextProvider } from './context/PatientContext';
 import { AdminsContextProvider } from './context/AdminContext';
 import { AuthContextProvider } from './context/authContext';
 import { DoctorsContextProvider } from './context/DoctorContext';
+import { RecordsContextProvider } from './context/RecordsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +15,11 @@ root.render(
     <AuthContextProvider>
       <DoctorsContextProvider>
         <AdminsContextProvider>
-          <PatientsContextProvider>
-            <App />
-          </PatientsContextProvider>
+          <RecordsContextProvider>
+            <PatientsContextProvider>
+              <App />
+            </PatientsContextProvider>
+          </RecordsContextProvider>
         </AdminsContextProvider>
       </DoctorsContextProvider>
     </AuthContextProvider>

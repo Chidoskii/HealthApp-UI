@@ -1,0 +1,41 @@
+.profile-opt-cards {
+  width: 90%;
+  margin: 25px auto;
+  background-color: whitesmoke;
+  box-shadow: 3px 3px 3px #222;
+}
+
+.opts-desc {
+  background-color: whitesmoke;
+}
+
+.card-body {
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+}
+
+.cta-can {
+  display: flex;
+}
+
+.cta-btn {
+  color: #111;
+  border: #111 solid 1pt;
+  background-color: goldenrod;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.cta-btn:hover {
+  background-color: #061237;
+}
+
+.card-text {
+  margin: 15px 0;
+}
+
+.welcome {
+  padding: 25px 0;
+  justify-content: center;
+}

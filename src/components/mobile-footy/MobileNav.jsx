@@ -115,7 +115,7 @@ const MNavi = () => {
           <Link to="/doctor_home" className="bttm-link-btn">
             <IoIosHome />
           </Link>
-          <Link to="/records" className="bttm-link-btn">
+          <Link to="/drecords" className="bttm-link-btn">
             <IoDocumentText />
           </Link>
           <div className="bttm-link-btn">

@@ -37,6 +37,11 @@ header .container {
   border-bottom: rgb(141, 141, 141) solid 1px;
 }
 
+.nav-creds-can {
+  display: flex;
+  padding: 0;
+}
+
 .banner {
   margin-top: 0;
 }
@@ -54,6 +59,7 @@ header .container {
 
 .page-links {
   display: flex;
+  align-items: center;
 }
 
 .link-btn {

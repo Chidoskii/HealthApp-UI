@@ -54,7 +54,7 @@ const Navi = () => {
               <Link to="/invoice" className="link-btn">
                 Invoice
               </Link>
-              <div>
+              <div className="nav-creds-can">
                 <span style={{ padding: 10 }} className="pname">
                   {patient.email}
                 </span>
@@ -101,7 +101,7 @@ const Navi = () => {
               <Link to="/doctor_home" className="link-btn">
                 Home
               </Link>
-              <Link to="/records" className="link-btn">
+              <Link to="/drecords" className="link-btn">
                 Records
               </Link>
               <Link to="/schedule" className="link-btn">

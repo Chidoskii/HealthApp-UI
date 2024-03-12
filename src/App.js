@@ -23,9 +23,11 @@ const DoctorLogin = lazy(() => import('./pages/DoctorLogin'));
 const SignupSelector = lazy(() => import('./pages/SignupSelector'));
 const LoginSelector = lazy(() => import('./pages/LoginSelector'));
 const Records = lazy(() => import('./pages/Records'));
+const DoctorRecords = lazy(() => import('./pages/DoctorRecords'));
 const Invoice = lazy(() => import('./pages/Invoice'));
 const Inventory = lazy(() => import('./pages/Inventory'));
 const Schedule = lazy(() => import('./pages/Schedule'));
+const PaySuccess = lazy(() => import('./pages/PaySuccess'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function App() {
@@ -44,11 +46,14 @@ function App() {
                 <Route path="/" element={<Landing />} />
                 <Route path="/signup_selection" element={<SignupSelector />} />
                 <Route path="/login_selection" element={<LoginSelector />} />
+                <Route path="/success" element={<PaySuccess />} />
                 <Route
                   path="/records"
-                  element={
-                    patient || doctor ? <Records /> : <Navigate to="/" />
-                  }
+                  element={patient ? <Records /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/drecords"
+                  element={doctor ? <DoctorRecords /> : <Navigate to="/" />}
                 />
                 <Route
                   path="/invoice"
