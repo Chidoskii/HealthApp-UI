@@ -6,6 +6,8 @@ import './styles/records.css';
 const Records = () => {
   const { doctor } = useAuthContext();
   const [user, setUser] = useState([]);
+  const [allPatients, setAllPatients] = useState([]);
+  let ussop = localStorage.getItem('userID');
 
   const [file, setFile] = useState();
   const [image, setImage] = useState();
@@ -30,6 +32,11 @@ const Records = () => {
       );
       const data = await response.json();
       setUser(data);
+      const allpatients = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/doctors/providers/${ussop}`
+      );
+      const patients = await allpatients.json();
+      setAllPatients(patients);
     };
     document.title = 'Records | RunnerHealth';
     getUserInfo();
@@ -60,7 +67,11 @@ const Records = () => {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <br></br>
-        <button type="submit" className="btn btn-dark" onClick={handleUpload}>
+        <button
+          type="submit"
+          className="btn btn-dark submit-btn"
+          onClick={handleUpload}
+        >
           Submit
         </button>
         <br></br>
@@ -82,6 +93,21 @@ const Records = () => {
           <h1>Gathering Data...</h1>
         )}
       </h2>
+      <div className="the-experiment">
+        <div>The STINCC TEAM</div>
+        <div>
+          {allPatients ? (
+            allPatients.map((patients, index) => (
+              <div>
+                <div className="">{patients._id}</div>
+                <div className="">{patients.fname}</div>
+              </div>
+            ))
+          ) : (
+            <h1> Well, Ummm....</h1>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

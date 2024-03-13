@@ -42,6 +42,11 @@ header .container {
   padding: 0;
 }
 
+.top-navi {
+  display: flex;
+  justify-content: space-around;
+}
+
 .banner {
   margin-top: 0;
 }
@@ -92,6 +97,10 @@ header .container {
 
 .mnav-logout-btn {
   background-color: #061237;
+}
+
+.creds-link {
+  width: 45%;
 }
 
 .creds-btn {
@@ -366,6 +375,12 @@ header .container {
 .card-body {
   background-color: gainsboro;
   border-radius: 15px;
+}
+
+.selector-can {
+  padding-top: 100px;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .footy-logo {

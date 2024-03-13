@@ -97,3 +97,10 @@
     width: 95%;
   }
 }
+
+.the-experiment {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  justify-content: center;
+}

@@ -12,6 +12,7 @@ const Home = () => {
       );
       const data = await response.json();
       setUser(data);
+      localStorage.setItem('userID', data[0]._id);
     };
     document.title = 'Home | RunnerHealth';
     getUserInfo();

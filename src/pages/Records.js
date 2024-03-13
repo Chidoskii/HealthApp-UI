@@ -1,42 +1,39 @@
 import { useEffect, useState } from 'react';
-import { useAuthContext } from '../hooks/useAuthContext';
 import axios from 'axios';
 import './styles/records.css';
 
 const Records = () => {
-  const { patient } = useAuthContext();
-  const [user, setUser] = useState([]);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
-  let ussop = ''; // variable to store patientID
+  //const [ussop, setUssop] = useState(localStorage.getItem('userID'));
+  let ussop = localStorage.getItem('userID');
 
   const handleUpload = (e) => {
     const formdata = new FormData();
     formdata.append('file', file);
-    formdata.append('patientID', user[0]._id);
+    formdata.append('patientID', ussop);
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/upload`, formdata)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/records/${ussop}`)
+      .then((res) => setImage(res.data))
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    const getpageInfo = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
-      );
-      const data = await response.json();
-      setUser(data);
-      ussop = data[0]._id;
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/records/${ussop}`)
+      .then((res) => setImage(res.data))
+      .catch((err) => console.log(err));
 
-      axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/records/${ussop}`)
-        .then((res) => setImage(res.data))
-        .catch((err) => console.log(err));
+    return () => {
+      document.title = 'Records | RunnerHealth';
+      console.log('All done.');
     };
-    document.title = 'Records | RunnerHealth';
-    getpageInfo();
-  }, [patient.email]);
+  }, [image]);
 
   return (
     <div className="records page-contents container-fluid">
@@ -45,11 +42,10 @@ const Records = () => {
       </h2>
 
       <div className="img-big-can">
-        {image && image.length > 1 ? (
+        {image && image.length > 0 ? (
           image.map((image, index) => (
-            <div className="img-can">
+            <div className="img-can" key={image.file}>
               <embed
-                key={image.file}
                 src={
                   `${process.env.REACT_APP_SERVER_URL}/Images/` + image.image
                 }

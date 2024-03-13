@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const LoginSelector = () => {
   return (
     <div className="home page-contents container-fluid">
-      <div className="container">
+      <div className="container selector-can">
         <button>
           <Link to="/doctor_login">Doctors</Link>
         </button>

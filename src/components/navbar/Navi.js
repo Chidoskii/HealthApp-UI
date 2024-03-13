@@ -82,7 +82,7 @@ const Navi = () => {
               <Link to="/invoice" className="link-btn">
                 Invoice
               </Link>
-              <div>
+              <div className="nav-creds-can">
                 <span style={{ padding: 10 }} className="pname">
                   {admin.email}
                 </span>
@@ -110,7 +110,7 @@ const Navi = () => {
               <Link to="/invoice" className="link-btn">
                 Invoice
               </Link>
-              <div>
+              <div className="nav-creds-can">
                 <span style={{ padding: 10 }} className="pname">
                   {doctor.email}
                 </span>
@@ -126,10 +126,10 @@ const Navi = () => {
           )}
           {!patient && !admin && !doctor && (
             <div className="top-navi">
-              <Link to="/login_selection">
+              <Link to="/login_selection" className="creds-link">
                 <Button className="creds-btn">LOGIN</Button>
               </Link>
-              <Link to="/signup_selection">
+              <Link to="/signup_selection" className="creds-link">
                 <Button className="creds-btn">JOIN</Button>
               </Link>
             </div>
