@@ -58,7 +58,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${process.env.REACT_APP_CLIENT_URL}/success`,
+        return_url: `${process.env.REACT_APP_CLIENT_URL}`,
       },
     });
 
@@ -81,9 +81,13 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" className="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <button
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+        className="stripe-submit-btn"
+      >
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}
         </span>

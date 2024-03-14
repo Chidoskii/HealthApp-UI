@@ -1,4 +1,4 @@
-form {
+.payment-form {
   width: 30vw;
   min-width: 500px;
   align-self: center;
@@ -27,7 +27,7 @@ form {
 }
 
 /* Buttons and links */
-button {
+.stripe-submit-btn {
   background: #5469d4;
   font-family: Arial, sans-serif;
   color: #ffffff;
@@ -43,11 +43,11 @@ button {
   width: 100%;
 }
 
-button:hover {
+.stripe-submit-btn:hover {
   filter: contrast(115%);
 }
 
-button:disabled {
+.stripe-submit-btn:disabled {
   opacity: 0.5;
   cursor: default;
 }
@@ -117,7 +117,7 @@ button:disabled {
 }
 
 @media only screen and (max-width: 600px) {
-  form {
+  .payment-form {
     width: 80vw;
     min-width: initial;
   }

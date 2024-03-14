@@ -9,6 +9,7 @@ import './styles/home.css';
 const Home = () => {
   const { patient } = useAuthContext();
   const [user, setUser] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -19,6 +20,17 @@ const Home = () => {
       setUser(data);
       localStorage.setItem('userID', data[0]._id);
     };
+
+    const getNotys = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/get_notys/${patient.email}`
+      );
+      const data = await response.json();
+      setNotifications(data);
+    };
+
+    getNotys();
+
     document.title = 'Home | RunnerHealth';
     getUserInfo();
   }, [patient.email]);
@@ -73,6 +85,29 @@ const Home = () => {
                 <Link to={features.link} className="cta-can">
                   <Button variant="primary" className="cta-btn">
                     {features.cta}
+                  </Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          ))
+        ) : (
+          <h1>Well this is weird...</h1>
+        )}
+      </div>
+      <div className="noty-card container">
+        {notifications ? (
+          notifications.map((notys, index) => (
+            <Card key={notys.sender} className="notification-cards">
+              <Card.Header>
+                This is a Notification, message sent from a user with an ID of{' '}
+                {notys.sender}
+              </Card.Header>
+              <Card.Body>
+                <Card.Title>{notys.title}</Card.Title>
+                <Card.Text>{notys.message}</Card.Text>
+                <Link to={notys.title} className="cta-can">
+                  <Button variant="primary" className="noty-link-btn">
+                    {notys.receiverGroup}
                   </Button>
                 </Link>
               </Card.Body>

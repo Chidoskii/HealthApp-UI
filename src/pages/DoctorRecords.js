@@ -6,6 +6,7 @@ import './styles/records.css';
 const Records = () => {
   const { doctor } = useAuthContext();
   const [user, setUser] = useState([]);
+  const [selection, setSelection] = useState([]);
   const [allPatients, setAllPatients] = useState([]);
   let ussop = localStorage.getItem('userID');
 
@@ -23,6 +24,15 @@ const Records = () => {
       .post(`${process.env.REACT_APP_SERVER_URL}/dupload`, formdata)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+  };
+
+  const selectPatient = (id) => {
+    const element = id;
+    console.log(element);
+    /*axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/records/${ussop}`)
+      .then((res) => setSelection(res.data))
+      .catch((err) => console.log(err));*/
   };
 
   useEffect(() => {
@@ -95,16 +105,36 @@ const Records = () => {
       </h2>
       <div className="the-experiment">
         <div>The STINCC TEAM</div>
-        <div>
+        <div className="client-list">
           {allPatients ? (
             allPatients.map((patients, index) => (
-              <div>
-                <div className="">{patients._id}</div>
-                <div className="">{patients.fname}</div>
-              </div>
+              <button onClick={selectPatient(patients._id)}>
+                <div className="patient-tag">
+                  <div id={patients._id} className="patientIDs">
+                    {patients._id}
+                  </div>
+                  <div className="">{patients.pName}</div>
+                </div>
+              </button>
             ))
           ) : (
-            <h1> Well, Ummm....</h1>
+            <h1> Well, Ummm... You don't Have any patients.</h1>
+          )}
+          {allPatients && selection == '' ? (
+            <div className="doctor-records-view"></div>
+          ) : (
+            selection.map((image, index) => (
+              <div className="img-can" key={image.file}>
+                <embed
+                  src={
+                    `${process.env.REACT_APP_SERVER_URL}/Images/` + image.image
+                  }
+                  alt=""
+                  className="upload-prev"
+                />
+                <div className="file-title">THE FILE TITLE</div>
+              </div>
+            ))
           )}
         </div>
       </div>

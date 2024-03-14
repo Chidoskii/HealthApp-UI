@@ -103,4 +103,71 @@
   width: 50%;
   margin: 0 auto;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.patient-tag {
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 2px #222;
+  border: #111 1px solid;
+  border-radius: 5px;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.client-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.doctor-records-view {
+  min-width: 80%;
+  min-height: 250px;
+  border: #b3b3b3 5px dashed;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*-----------------------------*/
+
+.msg-submit-btn,
+.msg-clear-btn {
+  background-color: #222;
+}
+
+.message-form-can {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-width: 350px;
+  max-width: 900px;
+  width: 80%;
+  background-color: #797979;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.msg-txt-area {
+  min-height: 150px;
+}
+
+.notification-cards {
+  width: 50%;
+  margin: 0 auto;
+  min-width: 300px;
+}
+
+.noty-link-btn {
+  background-color: #222;
 }
