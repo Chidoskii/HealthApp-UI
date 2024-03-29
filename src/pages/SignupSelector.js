@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom';
+import './styles/selector.css';
 
 const SignupSelector = () => {
   return (
-    <div className="home page-contents container-fluid">
+    <div className="login-selector-page page-contents container-fluid">
+      <h1>Select a User Group</h1>
       <div className="container selector-can">
-        <button>
-          <Link to="/doctor_signup">Doctors</Link>
-        </button>
+        <Link to="/doctor_signup" className="selector-btn">
+          <button>Doctors</button>
+        </Link>
         <br></br>
-        <button>
-          <Link to="/admin_signup">Workers</Link>
-        </button>
+        <Link to="/admin_signup" className="selector-btn">
+          <button>Workers</button>
+        </Link>
         <br></br>
-        <button>
-          <Link to="/patient_signup">Patients</Link>
-        </button>
+        <Link to="/patient_signup" className="selector-btn">
+          <button>Patients</button>
+        </Link>
       </div>
     </div>
   );

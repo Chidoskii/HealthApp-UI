@@ -15,6 +15,21 @@ const DoctorLogin = () => {
     await login(email, password);
   };
 
+  const handleDemo1Login = async (e) => {
+    e.preventDefault();
+    await login('msue@smail.com', 'ABCabc123!');
+  };
+
+  const handleDemo2Login = async (e) => {
+    e.preventDefault();
+    await login('wt@snailmail.com', 'ABCabc123!');
+  };
+
+  const handleDemo3Login = async (e) => {
+    e.preventDefault();
+    await login('av@smail.com', 'ABCabc123!');
+  };
+
   const invalidFields = !email || !password;
 
   return (
@@ -67,6 +82,17 @@ const DoctorLogin = () => {
             </Link>
           </p>
         </div>
+      </div>
+      <div className="demo-login-can">
+        <button onClick={handleDemo1Login} className="demo-logins">
+          demo Doctor 1
+        </button>
+        <button onClick={handleDemo2Login} className="demo-logins">
+          demo Doctor 2
+        </button>
+        <button onClick={handleDemo3Login} className="demo-logins">
+          demo Doctor 3
+        </button>
       </div>
     </div>
   );

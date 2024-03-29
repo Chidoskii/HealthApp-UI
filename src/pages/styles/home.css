@@ -39,3 +39,44 @@
   padding: 25px 0;
   justify-content: center;
 }
+
+/*-----------------------------*/
+
+.msg-submit-btn,
+.msg-clear-btn {
+  background-color: #222;
+}
+
+.message-form-can {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-width: 350px;
+  max-width: 900px;
+  width: 80%;
+  background-color: #797979;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.msg-txt-area {
+  min-height: 150px;
+}
+
+.notification-cards {
+  width: 50%;
+  margin: 0 auto;
+  min-width: 300px;
+}
+
+.noty-link-btn {
+  background-color: #222;
+  border: #222 solid 1px;
+}

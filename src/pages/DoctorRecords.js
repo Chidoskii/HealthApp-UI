@@ -29,10 +29,11 @@ const Records = () => {
   const selectPatient = (id) => {
     const element = id;
     console.log(element);
-    /*axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/records/${ussop}`)
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/records/${element}`)
       .then((res) => setSelection(res.data))
-      .catch((err) => console.log(err));*/
+      .catch((err) => console.log(err));
+    console.log(selection);
   };
 
   useEffect(() => {
@@ -108,10 +109,13 @@ const Records = () => {
         <div className="client-list">
           {allPatients ? (
             allPatients.map((patients, index) => (
-              <button onClick={selectPatient(patients._id)}>
+              <button
+                onClick={() => selectPatient(patients.patientID)}
+                key={patients._id}
+              >
                 <div className="patient-tag">
-                  <div id={patients._id} className="patientIDs">
-                    {patients._id}
+                  <div id={patients.patientID} className="patientIDs">
+                    {patients.patientID}
                   </div>
                   <div className="">{patients.pName}</div>
                 </div>
