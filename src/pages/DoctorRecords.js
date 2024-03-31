@@ -6,6 +6,8 @@ import './styles/records.css';
 const Records = () => {
   const { doctor } = useAuthContext();
   const [user, setUser] = useState([]);
+  const [title, setTitle] = useState('');
+  const [pID, setPID] = useState();
   const [selection, setSelection] = useState([]);
   const [allPatients, setAllPatients] = useState([]);
   let ussop = localStorage.getItem('userID');
@@ -16,10 +18,10 @@ const Records = () => {
   const handleUpload = (e) => {
     const formdata = new FormData();
     formdata.append('file', file);
-    formdata.append('patientID', '6541d2a42d371dca01cb321f');
+    formdata.append('title', title);
+    formdata.append('patientID', pID);
     formdata.append('doctorID', user[0]._id);
     console.log(Array.from(formdata));
-    console.log(user[0]._id);
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/dupload`, formdata)
       .then((res) => console.log(res))
@@ -28,12 +30,10 @@ const Records = () => {
 
   const selectPatient = (id) => {
     const element = id;
-    console.log(element);
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/records/${element}`)
       .then((res) => setSelection(res.data))
       .catch((err) => console.log(err));
-    console.log(selection);
   };
 
   useEffect(() => {
@@ -56,18 +56,13 @@ const Records = () => {
       .get(`${process.env.REACT_APP_SERVER_URL}/get_images`)
       .then((res) => setImage(res.data[0].image))
       .catch((err) => console.log(err));
-  }, [doctor.email]);
+  }, [doctor.email, ussop]);
 
   return (
     <div className="records page-contents container-fluid">
       <h2 className="welcome container-fluid text-2xl">
-        This is the Records Page
+        Patient Health Information
       </h2>
-      <h3>Medical Records</h3>
-      <h3>Electronic Health Records (EHR)</h3>
-      <h3>Personal Health Information (PHI)</h3>
-      <br></br>
-      <br></br>
       <br></br>
       <div className="form-can">
         <h3>File Uploads</h3>
@@ -77,6 +72,36 @@ const Records = () => {
           name="myImage"
           onChange={(e) => setFile(e.target.files[0])}
         />
+        <input
+          type="text"
+          id="myTitle"
+          name="myTitle"
+          placeholder="Enter a Title"
+          className="file-input-box"
+          value={title}
+          onInput={(e) => setTitle(e.target.value)}
+          required
+        />
+        <select
+          name="ugroup"
+          id="ugroup"
+          onChange={(e) => setPID(e.target.value)}
+        >
+          <option value="" disabled selected>
+            Select a patient
+          </option>
+          {allPatients.length > 0 ? (
+            allPatients.map((patients, index) => (
+              <option key={patients._id} value={patients.patientID}>
+                {patients.pName}
+              </option>
+            ))
+          ) : (
+            <option value="" disabled selected>
+              Well, this is weird.
+            </option>
+          )}
+        </select>
         <br></br>
         <button
           type="submit"
@@ -92,30 +117,19 @@ const Records = () => {
         />
       </div>
       <br></br>
-      <h2 className="welcome container-fluid text-2xl">
-        Welcome, &nbsp;
-        {user ? (
-          user.map((user, index) => (
-            <div key={index} className="uname">
-              <span>{user._id}</span>!
-            </div>
-          ))
-        ) : (
-          <h1>Gathering Data...</h1>
-        )}
-      </h2>
       <div className="the-experiment">
-        <div>The STINCC TEAM</div>
+        <div className="patient-list-header">Patient List</div>
         <div className="client-list">
-          {allPatients ? (
+          {allPatients.length > 0 ? (
             allPatients.map((patients, index) => (
               <button
                 onClick={() => selectPatient(patients.patientID)}
                 key={patients._id}
+                className="patient-tag"
               >
-                <div className="patient-tag">
+                <div>
                   <div id={patients.patientID} className="patientIDs">
-                    {patients.patientID}
+                    {index + 1}
                   </div>
                   <div className="">{patients.pName}</div>
                 </div>
@@ -124,19 +138,38 @@ const Records = () => {
           ) : (
             <h1> Well, Ummm... You don't Have any patients.</h1>
           )}
-          {allPatients && selection == '' ? (
+        </div>
+        <br></br>
+        <div className="doc-img-big-can">
+          {allPatients && selection == [] ? (
             <div className="doctor-records-view"></div>
           ) : (
-            selection.map((image, index) => (
+            selection.map(({ image, index, _id, title }) => (
               <div className="img-can" key={image.file}>
                 <embed
-                  src={
-                    `${process.env.REACT_APP_SERVER_URL}/Images/` + image.image
-                  }
+                  src={`${process.env.REACT_APP_SERVER_URL}/Images/` + image}
                   alt=""
-                  className="upload-prev"
+                  className="upload-prev rec-top-half"
                 />
-                <div className="file-title">THE FILE TITLE</div>
+                <div className="rec-bottom-half">
+                  <div className="file-title container">
+                    {title}
+                    <div className="doc-rec-btn-opt">
+                      <a
+                        href={
+                          `${process.env.REACT_APP_SERVER_URL}/Images/` + image
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rec-view-opt"
+                      >
+                        <button className="btn btn-dark view-btn-opt">
+                          view
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))
           )}

@@ -20,7 +20,7 @@ const Records = () => {
     formdata.append('file', file);
     formdata.append('title', title);
     formdata.append('patientID', ussop);
-    if (title == '' || title == undefined) {
+    if (title === '' || title === undefined) {
       setError('Enter a title');
       return;
     }
