@@ -10,6 +10,7 @@ const Home = () => {
   const { patient } = useAuthContext();
   const [user, setUser] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [invoices, setInvoices] = useState([]);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -19,6 +20,7 @@ const Home = () => {
       const data = await response.json();
       setUser(data);
       localStorage.setItem('userID', data[0]._id);
+      localStorage.setItem('orgID', data[0].org);
     };
 
     const getNotys = async () => {
@@ -29,7 +31,22 @@ const Home = () => {
       setNotifications(data);
     };
 
+    const getInvoice = async () => {
+      const info = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
+      );
+      const user = await info.json();
+
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/${user[0]._id}`
+      );
+      const data = await response.json();
+      setInvoices(data);
+      console.log(invoices);
+    };
+
     getNotys();
+    getInvoice();
 
     document.title = 'Home | RunnerHealth';
     getUserInfo();
@@ -110,6 +127,34 @@ const Home = () => {
                     {notys.receiverGroup}
                   </Button>
                 </Link>
+              </Card.Body>
+            </Card>
+          ))
+        ) : (
+          <h1>Well this is weird...</h1>
+        )}
+      </div>
+      <div className="noty-card container">
+        {invoices ? (
+          invoices.map((invoice, index) => (
+            <Card key={invoice._id} className="notification-cards">
+              <Card.Header>
+                This is an invoice sent from a user with an ID of{' '}
+                {invoice.sender}
+              </Card.Header>
+              <Card.Body>
+                <Card.Title>{invoice.subject}</Card.Title>
+                <Card.Text>{invoice.message}</Card.Text>
+                <a
+                  href={invoice.link}
+                  className="cta-can"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Button variant="primary" className="noty-link-btn">
+                    Click to pay
+                  </Button>
+                </a>
               </Card.Body>
             </Card>
           ))

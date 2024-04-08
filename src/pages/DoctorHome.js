@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext.js';
 import axios from 'axios';
 
+import './styles/home.css';
 import './styles/records.css';
 
 const Home = () => {
@@ -29,6 +30,7 @@ const Home = () => {
       const data = await response.json();
       setUser(data);
       localStorage.setItem('userID', data[0]._id);
+      localStorage.setItem('orgID', data[0].org);
     };
     document.title = 'Home | RunnerHealth';
     getUserInfo();

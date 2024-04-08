@@ -1,28 +1,23 @@
 import { useAuthContext } from '../hooks/useAuthContext';
-import React, { useState, useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import React, { useState, useEffect, useCallback } from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 import './styles/invoice.css';
-
-import CheckoutForm from '../components/checkout/CheckoutForm.js';
-
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
-const stripePromise = loadStripe(
-  'pk_test_51OtKU5LK0T54pFuRELxXXJAogNYaCh7oMfruEYTZk7As3jQ4cnJ2XvsWrVfKrX15kiMfpcOuaRARo4bwKbsf2NHP00K7kWQTxW'
-);
 
 export default function Invoice() {
   const { patient, admin, doctor } = useAuthContext();
-  const [clientSecret, setClientSecret] = useState('');
-  const [sender, setSender] = useState();
-  const [receiver, setReceiver] = useState([]);
   const [allPatients, setAllPatients] = useState([]);
-  const [group, setGroup] = useState('');
-  let userGroup = '';
+  const [allDoctors, setAllDoctors] = useState([]);
+  const [invoices, setInvoices] = useState([]);
+  const [unpaid, setUnpaid] = useState([]);
+  const [pending, setPending] = useState([]);
+  const [confirmed, setConfirmed] = useState([]);
   let ussop = localStorage.getItem('userID');
+  let orgID = localStorage.getItem('orgID');
+  let todaysDate = getDate();
 
   function getDate() {
     const today = new Date();
@@ -32,30 +27,38 @@ export default function Invoice() {
     return `${year}-${month}-${date}`;
   }
 
-  function getDueDate() {
-    const today = new Date();
-    const month = today.getMonth() + 7;
-    const year = today.getFullYear();
-    const date = 1;
-    return `${year}-${month}-${date}`;
+  function search() {
+    alert(`You created an invoice`);
   }
 
-  const handleSubmit = (e) => {
-    const formdata = new FormData();
-    formdata.append('sender', '65d696de8305820100ef32c4');
-    formdata.append('receiver', '654439073d54c21536f360dd');
-    formdata.append('dateSent', '2024-03-30');
-    formdata.append('dateDue', '2024-09-30');
-    formdata.append('subject', 'trial run');
-    formdata.append('message', 'this is a test');
-    formdata.append('link', 'hello');
-    formdata.append('createdBy', '65d620232ab31280d913ec22');
-    console.log(group);
+  function valueToString(id) {
+    let invnum = id.toString().slice(-6).toUpperCase();
+    return invnum;
+  }
 
+  function getProperDate(date) {
+    let value = new Date(date);
+    let newdate = value.toLocaleDateString();
+    return newdate;
+  }
+
+  const markPaid = async (id) => {
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/invoice`, formdata)
+      .patch(`${process.env.REACT_APP_SERVER_URL}/patient_invoices/${id}`)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+  };
+
+  const submitInvoice = (e) => {
+    const formdata = new FormData();
+    formdata.append('dateSent', todaysDate);
+    formdata.append('createdBy', ussop);
+    console.log(todaysDate);
+
+    // axios
+    //   .post(`${process.env.REACT_APP_SERVER_URL}/invoice`, formdata)
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
   };
 
   const getPatientList = async () => {
@@ -66,79 +69,562 @@ export default function Invoice() {
       const patients = await allpatients.json();
       setAllPatients(patients);
     }
+    if (admin) {
+      const allpatients = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/orgs/patients/${orgID}`
+      );
+      const patients = await allpatients.json();
+      setAllPatients(patients);
+      console.log(patients);
+    }
+  };
+
+  const getDoctorList = async () => {
+    if (admin) {
+      const alldoctors = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/admins/colleagues/${ussop}`
+      );
+      const doctors = await alldoctors.json();
+      setAllDoctors(doctors);
+    }
+  };
+
+  const getInvoices = async () => {
+    if (patient) {
+      const info = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
+      );
+      const user = await info.json();
+
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/${user[0]._id}`
+      );
+      const data = await response.json();
+      setInvoices(data);
+
+      const unpaid = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/unpaid/${user[0]._id}`
+      );
+      const list = await unpaid.json();
+      setUnpaid(list);
+
+      const pending = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/pending/${user[0]._id}`
+      );
+      const plist = await pending.json();
+      setPending(plist);
+
+      const paid = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/paid/${user[0]._id}`
+      );
+      const paidList = await paid.json();
+      setConfirmed(paidList);
+    }
+    if (admin || doctor) {
+      const unpaid = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/sent_invoices/unpaid/${ussop}`
+      );
+      const list = await unpaid.json();
+      setUnpaid(list);
+
+      const pending = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/sent_invoices/pending/${ussop}`
+      );
+      const plist = await pending.json();
+      setPending(plist);
+
+      const paid = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/sent_invoices/paid/${ussop}`
+      );
+      const paidList = await paid.json();
+      setConfirmed(paidList);
+    }
+  };
+
+  const getSender = async (sender) => {
+    const doctor = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/patient_invoices/sender/${sender}`
+    );
+    const info = await doctor.json();
+    const result = info[0];
+    return result;
   };
 
   useEffect(() => {
     document.title = 'Invoice | RunnerHealth';
-    // Create PaymentIntent as soon as the page loads
-    fetch(`${process.env.REACT_APP_SERVER_URL}/create-payment-intent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
 
-    if (patient) {
-      userGroup = 'patients';
-      console.log(userGroup);
-    }
+    getPatientList();
+    getInvoices();
+
     if (admin) {
-      userGroup = 'admins';
-      console.log(userGroup);
+      getDoctorList();
+      console.log(allDoctors);
     }
-    if (doctor) {
-      userGroup = 'doctors';
-      console.log(userGroup);
-    }
-  }, []);
-
-  const appearance = {
-    theme: 'stripe',
-  };
-  const options = {
-    clientSecret,
-    appearance,
-  };
+  }, [invoices]);
 
   return (
     <div className="home page-contents container-fluid">
-      {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-      )}
-      <div className="container-fluid">
-        <form
-          className="message-form-can"
-          method="post"
-          action={`${process.env.REACT_APP_SERVER_URL}/messenger`}
-        >
-          <input name="mtitle" placeholder="Subject" />
-          <select
-            name="ugroup"
-            id="ugroup"
-            onChange={(e) => setGroup(e.target.value)}
-          >
-            <option value="patients">Patient</option>
-            <option value="admins">Worker</option>
-            <option value="doctors">Doctor</option>
-          </select>
-          <input name="uemail" placeholder="example@smail.com" />
-          <textarea
-            name="mcontent"
-            className="msg-txt-area"
-            placeholder="Message goes here..."
-          />
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="btn btn-dark msg-submit-btn"
-          >
-            Send
-          </button>
-          <button className="btn btn-dark msg-clear-btn">Cancel</button>
-        </form>
+      <div className="container">
+        {admin || doctor ? (
+          <div>
+            <h1 className="invoice-section-header invoice-create-hdr">
+              {' '}
+              Create an Invoice{' '}
+            </h1>
+            <form
+              className="message-form-can"
+              method="post"
+              action={`${process.env.REACT_APP_SERVER_URL}/invoice`}
+            >
+              <input
+                name="createdBy"
+                value={ussop}
+                placeholder="You are the author"
+                type="hidden"
+              />
+              <input name="dateSent" value={todaysDate} type="hidden" />
+              <label htmlFor="subject">Service provided:</label>
+              <input name="subject" placeholder="Service Title" required />
+              <label htmlFor="dateDue">Enter a due date:</label>
+              <input type="date" id="dateDue" name="dateDue" required />
+              <label htmlFor="origin">Doctor's office:</label>
+              <select name="origin" id="origin" required>
+                <option value="" disabled selected>
+                  Select a doctor
+                </option>
+                {admin && allDoctors.length > 0 ? (
+                  allDoctors.map((doctors, index) => (
+                    <option key={doctors._id} value={doctors.doctorID}>
+                      Dr. {doctors.dName}
+                    </option>
+                  ))
+                ) : (
+                  <option value={ussop} selected>
+                    Bill to your office
+                  </option>
+                )}
+              </select>
+              <label htmlFor="origin">Choose a recipient:</label>
+              <select name="recipient" id="recipient" required>
+                <option value="" disabled selected>
+                  Select a patient
+                </option>
+                {doctor && allPatients.length > 0
+                  ? allPatients.map((patients, index) => (
+                      <option key={patients._id} value={patients.patientID}>
+                        {patients.pName}
+                      </option>
+                    ))
+                  : allPatients.map((patients, index) => (
+                      <option key={patients._id} value={patients._id}>
+                        {patients.fname} {patients.lname}
+                      </option>
+                    ))}
+              </select>
+              <label htmlFor="origin">Service Description:</label>
+              <textarea
+                name="message"
+                className="msg-txt-area"
+                placeholder="Description of service provided"
+                required
+              />
+              <label htmlFor="origin">Link to invoice:</label>
+              <input
+                name="link"
+                placeholder="Include link to Stripe"
+                required
+              />
+              <button
+                type="submit"
+                onClick={submitInvoice}
+                className="btn btn-dark msg-submit-btn"
+              >
+                Send
+              </button>
+              <button className="btn btn-dark msg-clear-btn">Cancel</button>
+            </form>
+            <div className="hr-divider-can">
+              <hr className="hr-divider-line-solo"></hr>
+            </div>
+            <div className="unpaid-invoices-can container-fluid">
+              <h1 className="invoice-section-header"> Unpaid Invoices </h1>
+              <div className="invoice-cards-can">
+                {unpaid && unpaid.length > 0 ? (
+                  unpaid
+                    .filter((invoice, index) => index < 3)
+                    .map((invoice) => (
+                      <Card key={invoice._id} className="invoice-cards">
+                        <Card.Header className="invoice-header-can">
+                          <div>
+                            INVOICE #&#x2022;&#x2022;&#x2022;&#x2022;
+                            {valueToString(invoice._id)}
+                          </div>
+                          <button
+                            className="btn btn-dark"
+                            title="Mark as Paid"
+                            onClick={() => markPaid(invoice._id)}
+                          >
+                            |||||
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <div className="inv-meta-can">
+                            <div className="sender-info">From: Dr.</div>
+                            <div className="invoice-date-can">
+                              <Card.Text className="invoice-date">
+                                Date sent: {getProperDate(invoice.dateSent)}
+                              </Card.Text>
+                              <Card.Text className="invoice-date">
+                                Date due: {getProperDate(invoice.dateDue)}
+                              </Card.Text>
+                            </div>
+                          </div>
+                          <Card.Title>{invoice.subject}</Card.Title>
+
+                          <Card.Text>{invoice.message}</Card.Text>
+                          <a
+                            href={invoice.link}
+                            className="cta-can"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <Button
+                              variant="primary"
+                              className="btn btn-dark inv-link-btn"
+                            >
+                              Click to pay
+                            </Button>
+                          </a>
+                        </Card.Body>
+                      </Card>
+                    ))
+                ) : (
+                  <div className="no-pics">
+                    <h1>Well this is weird...</h1>
+                  </div>
+                )}
+              </div>
+              <div className="hr-divider-can">
+                <hr className="hr-divider-line"></hr>
+                <div>VIEW ALL</div>
+                {'>>'}
+              </div>
+              <h1 className="invoice-section-header"> Pending Confirmation </h1>
+              <div className="invoice-cards-can">
+                {pending && pending.length > 0 ? (
+                  pending
+                    .filter((invoice, index) => index < 3)
+                    .map((invoice) => (
+                      <Card key={invoice._id} className="invoice-cards">
+                        <Card.Header className="invoice-header-can">
+                          <div>
+                            INVOICE #&#x2022;&#x2022;&#x2022;&#x2022;
+                            {valueToString(invoice._id)}
+                          </div>
+                          <button
+                            className="btn btn-dark"
+                            title="Mark as Paid"
+                            onClick={() => markPaid(invoice._id)}
+                          >
+                            |||||
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <div className="inv-meta-can">
+                            <div className="sender-info">From: Dr.</div>
+                            <div className="invoice-date-can">
+                              <Card.Text className="invoice-date">
+                                Date sent: {getProperDate(invoice.dateSent)}
+                              </Card.Text>
+                              <Card.Text className="invoice-date">
+                                Date due: {getProperDate(invoice.dateDue)}
+                              </Card.Text>
+                            </div>
+                          </div>
+                          <Card.Title>{invoice.subject}</Card.Title>
+
+                          <Card.Text>{invoice.message}</Card.Text>
+                          <a
+                            href={invoice.link}
+                            className="cta-can"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <Button
+                              variant="primary"
+                              className="btn btn-dark inv-link-btn"
+                            >
+                              Click to pay
+                            </Button>
+                          </a>
+                        </Card.Body>
+                      </Card>
+                    ))
+                ) : (
+                  <div className="no-pics">
+                    <h1>No Pending Invoices</h1>
+                  </div>
+                )}
+              </div>
+              <div className="hr-divider-can">
+                <hr className="hr-divider-line"></hr>
+                <div>VIEW ALL</div>
+                {'>>'}
+              </div>
+              <h1 className="invoice-section-header"> Paid Invoices </h1>
+              <div className="invoice-cards-can">
+                {confirmed && confirmed.length > 0 ? (
+                  confirmed
+                    .filter((invoice, index) => index < 3)
+                    .map((invoice) => (
+                      <Card key={invoice._id} className="invoice-cards">
+                        <Card.Header className="invoice-header-can">
+                          <div>
+                            INVOICE #&#x2022;&#x2022;&#x2022;&#x2022;
+                            {valueToString(invoice._id)}
+                          </div>
+                          <button
+                            className="btn btn-dark"
+                            title="Mark as Paid"
+                            onClick={() => markPaid(invoice._id)}
+                          >
+                            |||||
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <div className="inv-meta-can">
+                            <div className="sender-info">From: Dr.</div>
+                            <div className="invoice-date-can">
+                              <Card.Text className="invoice-date">
+                                Date sent: {getProperDate(invoice.dateSent)}
+                              </Card.Text>
+                              <Card.Text className="invoice-date">
+                                Date due: {getProperDate(invoice.dateDue)}
+                              </Card.Text>
+                            </div>
+                          </div>
+                          <Card.Title>{invoice.subject}</Card.Title>
+
+                          <Card.Text>{invoice.message}</Card.Text>
+                          <a
+                            href={invoice.link}
+                            className="cta-can"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <Button
+                              variant="primary"
+                              className="btn btn-dark inv-link-btn"
+                            >
+                              Click to pay
+                            </Button>
+                          </a>
+                        </Card.Body>
+                      </Card>
+                    ))
+                ) : (
+                  <div className="no-pics">
+                    <h1>No Paid Invoices</h1>
+                  </div>
+                )}
+              </div>
+              <div className="hr-divider-can">
+                <hr className="hr-divider-line"></hr>
+                <div>VIEW ALL</div>
+                {'>>'}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="unpaid-invoices-can container-fluid">
+            <h1 className="invoice-section-header"> Unpaid Invoices </h1>
+            <div className="invoice-cards-can">
+              {unpaid && unpaid.length > 0 ? (
+                unpaid
+                  .filter((invoice, index) => index < 3)
+                  .map((invoice) => (
+                    <Card key={invoice._id} className="invoice-cards">
+                      <Card.Header className="invoice-header-can">
+                        <div>
+                          INVOICE #&#x2022;&#x2022;&#x2022;&#x2022;
+                          {valueToString(invoice._id)}
+                        </div>
+                        <button
+                          className="btn btn-dark"
+                          title="Mark as Paid"
+                          onClick={() => markPaid(invoice._id)}
+                        >
+                          |||||
+                        </button>
+                      </Card.Header>
+                      <Card.Body>
+                        <div className="inv-meta-can">
+                          <div className="sender-info">From: Dr.</div>
+                          <div className="invoice-date-can">
+                            <Card.Text className="invoice-date">
+                              Date sent: {getProperDate(invoice.dateSent)}
+                            </Card.Text>
+                            <Card.Text className="invoice-date">
+                              Date due: {getProperDate(invoice.dateDue)}
+                            </Card.Text>
+                          </div>
+                        </div>
+                        <Card.Title>{invoice.subject}</Card.Title>
+
+                        <Card.Text>{invoice.message}</Card.Text>
+                        <a
+                          href={invoice.link}
+                          className="cta-can"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <Button
+                            variant="primary"
+                            className="btn btn-dark inv-link-btn"
+                          >
+                            Click to pay
+                          </Button>
+                        </a>
+                      </Card.Body>
+                    </Card>
+                  ))
+              ) : (
+                <div className="no-pics">
+                  <h1>Well this is weird...</h1>
+                </div>
+              )}
+            </div>
+            <div className="hr-divider-can">
+              <hr className="hr-divider-line"></hr>
+              <div>VIEW ALL</div>
+              {'>>'}
+            </div>
+            <h1 className="invoice-section-header"> Pending Confirmation </h1>
+            <div className="invoice-cards-can">
+              {pending && pending.length > 0 ? (
+                pending
+                  .filter((invoice, index) => index < 3)
+                  .map((invoice) => (
+                    <Card key={invoice._id} className="invoice-cards">
+                      <Card.Header className="invoice-header-can">
+                        <div>
+                          INVOICE #&#x2022;&#x2022;&#x2022;&#x2022;
+                          {valueToString(invoice._id)}
+                        </div>
+                        <button
+                          className="btn btn-dark"
+                          title="Mark as Paid"
+                          onClick={() => markPaid(invoice._id)}
+                        >
+                          |||||
+                        </button>
+                      </Card.Header>
+                      <Card.Body>
+                        <div className="inv-meta-can">
+                          <div className="sender-info">From: Dr.</div>
+                          <div className="invoice-date-can">
+                            <Card.Text className="invoice-date">
+                              Date sent: {getProperDate(invoice.dateSent)}
+                            </Card.Text>
+                            <Card.Text className="invoice-date">
+                              Date due: {getProperDate(invoice.dateDue)}
+                            </Card.Text>
+                          </div>
+                        </div>
+                        <Card.Title>{invoice.subject}</Card.Title>
+
+                        <Card.Text>{invoice.message}</Card.Text>
+                        <a
+                          href={invoice.link}
+                          className="cta-can"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <Button
+                            variant="primary"
+                            className="btn btn-dark inv-link-btn"
+                          >
+                            Click to pay
+                          </Button>
+                        </a>
+                      </Card.Body>
+                    </Card>
+                  ))
+              ) : (
+                <div className="no-pics">
+                  <h1>No Pending Invoices</h1>
+                </div>
+              )}
+            </div>
+            <div className="hr-divider-can">
+              <hr className="hr-divider-line"></hr>
+              <div>VIEW ALL</div>
+              {'>>'}
+            </div>
+            <h1 className="invoice-section-header"> Paid Invoices </h1>
+            <div className="invoice-cards-can">
+              {confirmed && confirmed.length > 0 ? (
+                confirmed
+                  .filter((invoice, index) => index < 3)
+                  .map((invoice) => (
+                    <Card key={invoice._id} className="invoice-cards">
+                      <Card.Header className="invoice-header-can">
+                        <div>
+                          INVOICE #&#x2022;&#x2022;&#x2022;&#x2022;
+                          {valueToString(invoice._id)}
+                        </div>
+                        <button
+                          className="btn btn-dark"
+                          title="Mark as Paid"
+                          onClick={() => markPaid(invoice._id)}
+                        >
+                          |||||
+                        </button>
+                      </Card.Header>
+                      <Card.Body>
+                        <div className="inv-meta-can">
+                          <div className="sender-info">From: Dr.</div>
+                          <div className="invoice-date-can">
+                            <Card.Text className="invoice-date">
+                              Date sent: {getProperDate(invoice.dateSent)}
+                            </Card.Text>
+                            <Card.Text className="invoice-date">
+                              Date due: {getProperDate(invoice.dateDue)}
+                            </Card.Text>
+                          </div>
+                        </div>
+                        <Card.Title>{invoice.subject}</Card.Title>
+
+                        <Card.Text>{invoice.message}</Card.Text>
+                        <a
+                          href={invoice.link}
+                          className="cta-can"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <Button
+                            variant="primary"
+                            className="btn btn-dark inv-link-btn"
+                          >
+                            Click to pay
+                          </Button>
+                        </a>
+                      </Card.Body>
+                    </Card>
+                  ))
+              ) : (
+                <div className="no-pics">
+                  <h1>No Paid Invoices</h1>
+                </div>
+              )}
+            </div>
+            <div className="hr-divider-can">
+              <hr className="hr-divider-line"></hr>
+              <div>VIEW ALL</div>
+              {'>>'}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
