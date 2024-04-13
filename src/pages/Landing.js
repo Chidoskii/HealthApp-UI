@@ -21,6 +21,7 @@ import twelve from './imgs/payment.jpg';
 import thirteen from './imgs/doc.jpg';
 import fourteen from './imgs/healthcare-worker.jpg';
 import fifteen from './imgs/patient.jpg';
+import sixteen from './imgs/Team-scaled.webp';
 
 function Landing() {
   return (
@@ -243,9 +244,31 @@ function Landing() {
         </div>
         <div className="runner-contact container-fluid">
           <div className="runner-contact-l">
-            <h1 className="subsec-title">Contacts Us</h1>
+            <h1 className="subsec-title">Project Info</h1>
+            The work seen here represents Chidi Okpara's individual contribution
+            to the project. This site is hosted by Render, and was used for
+            continuos development.
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div className="group-runner-can">
+              The full version of Runner Health can be found at: <br></br>
+              <br></br>
+              <a
+                href="https://runnerhealth.onrender.com/"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                <button className="btn btn-dark">
+                  <span className="runner-link">Runner Health</span>
+                </button>
+              </a>
+            </div>
           </div>
-          <div className="runner-contact-r"></div>
+          <div className="runner-contact-r">
+            <img className="contact-img" alt=".." src={sixteen} />
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { useRecordsContext } from '../hooks/useRecordContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useEffect, useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -7,7 +6,6 @@ import './styles/records.css';
 
 const Records = () => {
   const { patient } = useAuthContext();
-  const { dispatch } = useRecordsContext();
   const [file, setFile] = useState();
   const [title, setTitle] = useState('');
   const [image, setImage] = useState();
@@ -37,21 +35,12 @@ const Records = () => {
       console.log('nothing to see here...');
       return;
     }
-    const response = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}/records/` + id,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${patient.token}`,
-        },
-      }
-    );
-
-    const json = await response.json();
-
-    if (response.ok) {
-      dispatch({ type: 'DELETE_TASK', payload: json });
-    }
+    fetch(`${process.env.REACT_APP_SERVER_URL}/records/` + id, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${patient.token}`,
+      },
+    });
   };
 
   useEffect(() => {

@@ -1,13 +1,14 @@
 import { useAuthContext } from '../hooks/useAuthContext';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import './styles/invoice.css';
 
 export default function Invoice() {
+  const navigate = useNavigate();
   const { patient, admin, doctor } = useAuthContext();
   const [allPatients, setAllPatients] = useState([]);
   const [allDoctors, setAllDoctors] = useState([]);
@@ -27,10 +28,6 @@ export default function Invoice() {
     return `${year}-${month}-${date}`;
   }
 
-  function search() {
-    alert(`You created an invoice`);
-  }
-
   function valueToString(id) {
     let invnum = id.toString().slice(-6).toUpperCase();
     return invnum;
@@ -44,21 +41,24 @@ export default function Invoice() {
 
   const markPaid = async (id) => {
     axios
-      .patch(`${process.env.REACT_APP_SERVER_URL}/patient_invoices/${id}`)
+      .patch(
+        `${process.env.REACT_APP_SERVER_URL}/invoices/patient_invoices/${id}`
+      )
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
   const submitInvoice = (e) => {
-    const formdata = new FormData();
-    formdata.append('dateSent', todaysDate);
-    formdata.append('createdBy', ussop);
-    console.log(todaysDate);
+    e.preventDefault();
+    const formdata = new FormData(e.target);
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/invoice`, formdata, {
+        'Content-Type': 'multipart/form-data',
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
 
-    // axios
-    //   .post(`${process.env.REACT_APP_SERVER_URL}/invoice`, formdata)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
+    navigate('/invoice');
   };
 
   const getPatientList = async () => {
@@ -97,44 +97,44 @@ export default function Invoice() {
       const user = await info.json();
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/${user[0]._id}`
+        `${process.env.REACT_APP_SERVER_URL}/invoices/patient_invoices/${user[0]._id}`
       );
       const data = await response.json();
       setInvoices(data);
 
       const unpaid = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/unpaid/${user[0]._id}`
+        `${process.env.REACT_APP_SERVER_URL}/invoices/patient_invoices/unpaid/${user[0]._id}`
       );
       const list = await unpaid.json();
       setUnpaid(list);
 
       const pending = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/pending/${user[0]._id}`
+        `${process.env.REACT_APP_SERVER_URL}/invoices/patient_invoices/pending/${user[0]._id}`
       );
       const plist = await pending.json();
       setPending(plist);
 
       const paid = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/patient_invoices/paid/${user[0]._id}`
+        `${process.env.REACT_APP_SERVER_URL}/invoices/patient_invoices/paid/${user[0]._id}`
       );
       const paidList = await paid.json();
       setConfirmed(paidList);
     }
     if (admin || doctor) {
       const unpaid = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/sent_invoices/unpaid/${ussop}`
+        `${process.env.REACT_APP_SERVER_URL}/invoices/sent_invoices/unpaid/${ussop}`
       );
       const list = await unpaid.json();
       setUnpaid(list);
 
       const pending = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/sent_invoices/pending/${ussop}`
+        `${process.env.REACT_APP_SERVER_URL}/invoices/sent_invoices/pending/${ussop}`
       );
       const plist = await pending.json();
       setPending(plist);
 
       const paid = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/sent_invoices/paid/${ussop}`
+        `${process.env.REACT_APP_SERVER_URL}/invoices/sent_invoices/paid/${ussop}`
       );
       const paidList = await paid.json();
       setConfirmed(paidList);
@@ -143,7 +143,7 @@ export default function Invoice() {
 
   const getSender = async (sender) => {
     const doctor = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}/patient_invoices/sender/${sender}`
+      `${process.env.REACT_APP_SERVER_URL}/invoices/patient_invoices/sender/${sender}`
     );
     const info = await doctor.json();
     const result = info[0];
@@ -173,8 +173,7 @@ export default function Invoice() {
             </h1>
             <form
               className="message-form-can"
-              method="post"
-              action={`${process.env.REACT_APP_SERVER_URL}/invoice`}
+              onSubmit={(e) => submitInvoice(e)}
             >
               <input
                 name="createdBy"
@@ -234,11 +233,7 @@ export default function Invoice() {
                 placeholder="Include link to Stripe"
                 required
               />
-              <button
-                type="submit"
-                onClick={submitInvoice}
-                className="btn btn-dark msg-submit-btn"
-              >
+              <button type="submit" className="btn btn-dark msg-submit-btn">
                 Send
               </button>
               <button className="btn btn-dark msg-clear-btn">Cancel</button>
